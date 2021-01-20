@@ -1,0 +1,24 @@
+{
+  "name": "ascii-3d",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "clean": "rm dist/bundle.js",
+    "start": "snowpack dev",
+    "build": "snowpack build"
+  },
+  "dependencies": {
+    "mathjs": "^8.1.1",
+    "tailwindcss": "^2.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.1",
+    "postcss": "^8.2.4",
+    "postcss-cli": "^8.3.1",
+    "snowpack": "^2.18.5"
+  }
+}
