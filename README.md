@@ -1,6 +1,6 @@
 # ascii-3d
 
-Sandbox for 3d rendering using ASCII.
+Sandbox for 3d rendering using ASCII. Simple demo trying to show the different steps in a graphics pipeline.
 
 ## How to run on localhost
 
