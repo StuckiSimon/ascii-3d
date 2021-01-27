@@ -11,6 +11,18 @@ function main() {
 
   let theta = 0 // in rad
 
+  const generateCircle = function (radius, step) {
+    const circle = []
+
+    for (let i = 0; i < 2 * Math.PI; i += step) {
+      const x = Math.cos(i) * radius
+      const y = Math.sin(i) * radius
+      circle.push([x, y, 0, 0])
+    }
+
+    return circle
+  }
+
   const render = function () {
     theta += 0.1
     const renderBuffer = []
@@ -26,13 +38,7 @@ function main() {
     const cameraLookAt = [0, 0, 5]
     const up = [0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2]
 
-    const object1 = [
-      [0, 0, 0, 0],
-      [0, -1, 0, 0],
-      [0, 1, 0, 0],
-      [1, 0, 0, 0],
-      [-1, 0, 0, 0],
-    ]
+    const object1 = generateCircle(0.8, 0.3)
 
     const object1Origin = [-1, -2, 4, 0]
 
