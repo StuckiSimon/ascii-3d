@@ -9,7 +9,10 @@ function main() {
   const screenWidth = 60
   const screenHeight = screenWidth
 
+  let theta = 0 // in rad
+
   const render = function () {
+    theta += 0.1
     const renderBuffer = []
     const zBuffer = []
 
@@ -23,13 +26,21 @@ function main() {
     const cameraLookAt = [0, 0, 5]
     const up = [0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2]
 
-    const points = [
-      [-1, -3, 4, 0],
-      [-1, -2, 4, 0],
-      [-1, -1, 4, 0],
-      [0, -2, 4, 0],
-      [-2, -2, 4, 0],
-      [-2, 200, 4, 0],
+    const object1 = [
+      [0, 0, 0, 0],
+      [0, -1, 0, 0],
+      [0, 1, 0, 0],
+      [1, 0, 0, 0],
+      [-1, 0, 0, 0],
+    ]
+
+    const object1Origin = [-1, -2, 4, 0]
+
+    const scene = [
+      {
+        origin: object1Origin,
+        vertices: object1,
+      },
     ]
 
     const eMinusCenter = math.subtract(camera, cameraLookAt)
@@ -54,6 +65,25 @@ function main() {
     ]
 
     const viewMatrix = math.multiply(R, T)
+
+    // object space to world space
+    const points = scene
+      .map(({ origin, vertices }) => {
+        return vertices.map((vertex) => {
+          let v = vertex
+          // rotation matrix
+          const RxM = [
+            [1, 0, 0, 0],
+            [0, Math.cos(theta), -Math.sin(theta), 0],
+            [0, Math.sin(theta), Math.cos(theta), 0],
+            [0, 0, 0, 1],
+          ]
+          v = math.multiply(RxM, v)
+          v = math.add(origin, v)
+          return v
+        })
+      })
+      .reduce((prev, curr) => [...prev, ...curr], [])
 
     const pointsInView = points.map((p) => math.multiply(p, viewMatrix))
 
@@ -85,7 +115,20 @@ function main() {
       })
       .filter((p) => p[0] >= -1 && p[0] <= 1 && p[1] >= -1 && p[1] <= 1)
 
-    pointsNdc.forEach((p) => {
+    // TODO: due to the filter the index might not match in pointsNdc and pointDepths
+    const pointDepths = pointsInView.map((p) => math.norm(p))
+
+    const max = pointDepths.reduce((pre, curr) => (pre > curr ? pre : curr), 0)
+    const min = pointDepths.reduce(
+      (pre, curr) => (pre < curr ? pre : curr),
+      Infinity
+    )
+
+    const normalizedDepths = pointDepths.map(
+      (depth) => (depth - min) / (max - min)
+    )
+
+    pointsNdc.forEach((p, i) => {
       // range is from -1 to 1
       const a = math.add(p, 1)
       // TODO: this currently enforces screenWidth and screenHeight to be identical
@@ -95,11 +138,16 @@ function main() {
 
       const position = x + y * screenWidth
 
-      renderBuffer[position] = '@'
+      const zIndexElement = Math.round(normalizedDepths[i] * 10)
+      renderBuffer[position] = '@$#*!=;:~-.'[zIndexElement]
     })
 
     pretag.innerHTML = renderBuffer.join('')
   }
+
+  setInterval(() => {
+    render()
+  }, 100)
 
   render()
 }
