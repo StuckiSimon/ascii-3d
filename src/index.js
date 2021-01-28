@@ -32,6 +32,17 @@ function main() {
     return torus
   }
 
+  const torus = generateTorus()
+
+  const torusOrigin = [-1.85, -2, 4, 0]
+
+  const scene = [
+    {
+      origin: torusOrigin,
+      vertices: torus,
+    },
+  ]
+
   const render = function () {
     theta += 0.1
     const renderBuffer = []
@@ -46,17 +57,6 @@ function main() {
     const camera = [0, 0, 0]
     const cameraLookAt = [0, 0, 5]
     const up = [0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2]
-
-    const object1 = generateTorus()
-
-    const object1Origin = [-1.85, -2, 4, 0]
-
-    const scene = [
-      {
-        origin: object1Origin,
-        vertices: object1,
-      },
-    ]
 
     const eMinusCenter = math.subtract(camera, cameraLookAt)
     const zc = math.dotDivide(eMinusCenter, math.norm(eMinusCenter))
