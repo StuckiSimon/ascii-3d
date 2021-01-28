@@ -13,10 +13,10 @@ function main() {
 
   const generateTorus = function () {
     const outerRadius = 0.8
-    const outerStep = 0.2
+    const outerStep = 0.1
     const innerRadius = 0.2
-    const innerStep = 0.2
-    const circle = []
+    const innerStep = 0.3
+    const torus = []
 
     for (let i = 0; i < 2 * Math.PI; i += outerStep) {
       const x = Math.cos(i) * outerRadius
@@ -25,12 +25,23 @@ function main() {
       for (let j = 0; j < 2 * Math.PI; j += innerStep) {
         const x1 = Math.cos(j) * innerRadius
         const y1 = Math.sin(j) * innerRadius
-        circle.push([x + x1, y, y1, 0])
+        torus.push([x + x1, y, y1, 0])
       }
     }
 
-    return circle
+    return torus
   }
+
+  const torus = generateTorus()
+
+  const torusOrigin = [-1.85, -2, 4, 0]
+
+  const scene = [
+    {
+      origin: torusOrigin,
+      vertices: torus,
+    },
+  ]
 
   const render = function () {
     theta += 0.1
@@ -46,17 +57,6 @@ function main() {
     const camera = [0, 0, 0]
     const cameraLookAt = [0, 0, 5]
     const up = [0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2]
-
-    const object1 = generateTorus()
-
-    const object1Origin = [-1, -2, 4, 0]
-
-    const scene = [
-      {
-        origin: object1Origin,
-        vertices: object1,
-      },
-    ]
 
     const eMinusCenter = math.subtract(camera, cameraLookAt)
     const zc = math.dotDivide(eMinusCenter, math.norm(eMinusCenter))
