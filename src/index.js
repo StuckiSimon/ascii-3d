@@ -40,7 +40,7 @@ function main() {
     // initialize empty buffer
     for (let k = 0; k < screenHeight * screenWidth; k++) {
       renderBuffer[k] = k % screenWidth == screenWidth - 1 ? '\n' : ' '
-      zBuffer[k] = 0
+      zBuffer[k] = Infinity
     }
 
     const camera = [0, 0, 0]
@@ -154,7 +154,11 @@ function main() {
       const position = x + y * screenWidth
 
       const zIndexElement = Math.round(normalizedDepths[i] * 10)
-      renderBuffer[position] = '@$#*!=;:~-.'[zIndexElement]
+      // Only render element if it's closer than an already rendered element
+      if (zBuffer[position] > zIndexElement) {
+        zBuffer[position] = zIndexElement
+        renderBuffer[position] = '@$#*!=;:~-.'[zIndexElement]
+      }
     })
 
     pretag.innerHTML = renderBuffer.join('')
