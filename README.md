@@ -1,6 +1,8 @@
-# ascii-3d
+# ASCII-3D 🍩
 
 Sandbox for 3d rendering using ASCII. Simple demo trying to show the different steps in a graphics pipeline.
+
+This project is only for demonstration purposes, it's meant to be used to get a grasp of the math involved in 3d rendering.
 
 ## How to run on localhost
 
@@ -26,5 +28,6 @@ npm run build
 
 ## Credits
 
-Made with [createapp.dev](https://createapp.dev/)
+The visualization is inspired by [donut.c](https://www.a1k0n.net/2011/07/20/donut-math.html).
+Made with [createapp.dev](https://createapp.dev/).
 
