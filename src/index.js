@@ -13,9 +13,9 @@ function main() {
 
   const generateTorus = function () {
     const outerRadius = 0.8
-    const outerStep = 0.2
+    const outerStep = 0.1
     const innerRadius = 0.2
-    const innerStep = 0.2
+    const innerStep = 0.3
     const circle = []
 
     for (let i = 0; i < 2 * Math.PI; i += outerStep) {
