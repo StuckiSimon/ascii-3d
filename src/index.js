@@ -49,7 +49,7 @@ function main() {
 
     const object1 = generateTorus()
 
-    const object1Origin = [-1, -2, 4, 0]
+    const object1Origin = [-1.85, -2, 4, 0]
 
     const scene = [
       {
