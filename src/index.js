@@ -11,13 +11,22 @@ function main() {
 
   let theta = 0 // in rad
 
-  const generateCircle = function (radius, step) {
+  const generateTorus = function () {
+    const outerRadius = 0.8
+    const outerStep = 0.2
+    const innerRadius = 0.2
+    const innerStep = 0.2
     const circle = []
 
-    for (let i = 0; i < 2 * Math.PI; i += step) {
-      const x = Math.cos(i) * radius
-      const y = Math.sin(i) * radius
-      circle.push([x, y, 0, 0])
+    for (let i = 0; i < 2 * Math.PI; i += outerStep) {
+      const x = Math.cos(i) * outerRadius
+      const y = Math.sin(i) * outerRadius
+
+      for (let j = 0; j < 2 * Math.PI; j += innerStep) {
+        const x1 = Math.cos(j) * innerRadius
+        const y1 = Math.sin(j) * innerRadius
+        circle.push([x + x1, y, y1, 0])
+      }
     }
 
     return circle
@@ -38,7 +47,7 @@ function main() {
     const cameraLookAt = [0, 0, 5]
     const up = [0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2]
 
-    const object1 = generateCircle(0.8, 0.3)
+    const object1 = generateTorus()
 
     const object1Origin = [-1, -2, 4, 0]
 
