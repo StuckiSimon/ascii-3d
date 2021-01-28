@@ -16,7 +16,7 @@ function main() {
     const outerStep = 0.1
     const innerRadius = 0.2
     const innerStep = 0.3
-    const circle = []
+    const torus = []
 
     for (let i = 0; i < 2 * Math.PI; i += outerStep) {
       const x = Math.cos(i) * outerRadius
@@ -25,11 +25,11 @@ function main() {
       for (let j = 0; j < 2 * Math.PI; j += innerStep) {
         const x1 = Math.cos(j) * innerRadius
         const y1 = Math.sin(j) * innerRadius
-        circle.push([x + x1, y, y1, 0])
+        torus.push([x + x1, y, y1, 0])
       }
     }
 
-    return circle
+    return torus
   }
 
   const render = function () {
